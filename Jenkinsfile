@@ -1,20 +1,34 @@
 #!groovy
 
-node('master') {
-    stage('checkout') {
-        notifyBuild()
-        checkout scm
+pipeline {
+    post {
+        // No matter what the build status is, run these steps. There are other conditions
+        // available as well, such as "success", "failed", "unstable", and "changed".
+        always {
+            notifyBuild("Always")
+        }
     }
 
-    stage('stage 1') {
-        echo 'stage 1'
+    stages {
+        node('master') {
+            stage('checkout') {
+                notifyBuild()
+                checkout scm
+            }
+
+            stage('stage 1') {
+                echo 'stage 1'
+            }
+
+            stage('stage 2') {
+                echo "stage 2"
+            }
+
+        } //node
     }
 
-    stage('stage 2') {
-        echo "stage 2"
-    }
+}
 
-} //node
 
 def notifyBuild(String buildStatus = 'STARTED') {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
