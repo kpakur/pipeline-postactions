@@ -1,6 +1,6 @@
 #!groovy
 
-pipeline {
+
     post {
         // No matter what the build status is, run these steps. There are other conditions
         // available as well, such as "success", "failed", "unstable", and "changed".
@@ -27,7 +27,7 @@ pipeline {
         } //node
     }
 
-}
+
 
 
 def notifyBuild(String buildStatus = 'STARTED') {
