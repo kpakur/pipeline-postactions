@@ -53,7 +53,7 @@ try{
     notifyBuild('ENDED')
 }
 
-pipeline(){
+def pipeline(){
     node('master') {
         stage('checkout') {
             checkout scm
