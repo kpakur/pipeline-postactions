@@ -37,11 +37,11 @@ def pipeline(){
         deleteDir();
     }
     node('master') {
-        stage('\u001B[34mstage 2') {
+        stage('\u001B[34m stage 2') {
             echo "stage 2"
         }
 
-        stage('\u001B[35mstage 3') {
+        stage('\u001B[35m stage 3') {
             echo '============= BRANCH=' + branchName
             echo '============= BUILD NUMBER=' + buildNumber
             echo '============= BUILD VERSION=' + buildVersion
