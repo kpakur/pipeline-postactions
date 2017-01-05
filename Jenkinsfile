@@ -1,33 +1,44 @@
 #!groovy
 
+try{
+    notifyBuild('STARTED')
+    pipeline()
+    notifyBuild('SUCCESSFUL')
+} catch (Exception ex){
+    notifyBuild('FAILED')
+} finally {
+    notifyBuild('ENDED')
+}
 
-    post {
-        // No matter what the build status is, run these steps. There are other conditions
-        // available as well, such as "success", "failed", "unstable", and "changed".
-        always {
-            notifyBuild("Always")
+def pipeline(){
+    node('master') {
+        stage('checkout') {
+            notifyBuild()
+            checkout scm
         }
-    }
 
-    stages {
-        node('master') {
-            stage('checkout') {
-                notifyBuild()
-                checkout scm
-            }
+        stage('stage 1') {
+            echo 'stage 1'
+        }
 
-            stage('stage 1') {
-                echo 'stage 1'
-            }
-
-            stage('stage 2') {
+        wrap([$class: 'AnsiColorBuildWrapper']) {
+            stage('\u001B[34mstage 2') {
                 echo "stage 2"
             }
+        }
 
-        } //node
-    }
+        stage('\u001B[35mstage 3') {
+            echo "stage 3"
+        }
 
+        input( message: 'Ok?')
 
+        stage('stage 4') {
+            echo "stage 3"
+        }
+
+    } //node
+}
 
 
 def notifyBuild(String buildStatus = 'STARTED') {
@@ -38,7 +49,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
     // Default values
     def colorCode = '#FF0000'
     // Override default values based on build status
-    if (buildStatus == 'STARTED') {
+    if (buildStatus == 'STARTED' || buildStatus == 'ENDED') {
         color = 'YELLOW'
         colorCode = '#FFFF00'
     } else if (buildStatus == 'SUCCESSFUL') {
