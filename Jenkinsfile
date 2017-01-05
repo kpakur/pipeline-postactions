@@ -48,9 +48,12 @@ def pipeline(){
             echo "Commit ID = " + commitId
             echo "stage 3"
         }
+    }
 
-        input( message: 'Ok?')
+    input( message: 'Ok?')
 
+
+    node('master') {
         stage('stage 4') {
             echo "stage 3"
         }
