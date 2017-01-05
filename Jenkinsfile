@@ -41,12 +41,14 @@ def pipeline(){
             echo "stage 2"
         }
 
-        stage('\u001B[35m stage 3') {
-            echo '============= BRANCH=' + branchName
-            echo '============= BUILD NUMBER=' + buildNumber
-            echo '============= BUILD VERSION=' + buildVersion
-            echo "Commit ID = " + commitId
-            echo "stage 3"
+        wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+            stage('\u001B[35m stage 3') {
+                echo '============= BRANCH=' + branchName
+                echo '============= BUILD NUMBER=' + buildNumber
+                echo '============= BUILD VERSION=' + buildVersion
+                echo "Commit ID = " + commitId
+                echo "stage 3"
+            }
         }
     }
 
