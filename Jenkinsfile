@@ -31,7 +31,7 @@ def pipeline(){
             echo "Commit ID = " + commitId
         }
 
-        stage('\u2705stage 1') {
+        stage('<strong>stage 1</strong>') {
             echo 'stage 1'
         }
         deleteDir();
