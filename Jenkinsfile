@@ -31,7 +31,7 @@ node('master') {
         echo "stage 2"
     }
 
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+    wrap([$class: 'AnsiColorBuildWrapper']) {
         stage('\u001B[35m stage 3') {
             echo '============= BRANCH=' + branchName
             echo '============= BUILD NUMBER=' + buildNumber
