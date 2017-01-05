@@ -1,5 +1,18 @@
 #!groovy
 
+commitId = ''
+branchName = BRANCH_NAME
+buildNumber = BUILD_NUMBER
+buildVersion = '0.0.' + BUILD_NUMBER
+if (branchName != 'master'){
+    buildVersion =  BRANCH_NAME.replaceAll('/', '') +'.' + BUILD_NUMBER
+}
+currentBuild.displayName = buildVersion
+
+echo '============= BRANCH=' + branchName
+echo '============= BUILD NUMBER=' + buildNumber
+echo '============= BUILD VERSION=' + buildVersion
+
 try{
     notifyBuild('STARTED')
     pipeline()
@@ -13,21 +26,26 @@ try{
 def pipeline(){
     node('master') {
         stage('checkout') {
-            notifyBuild()
             checkout scm
+            commitId = sh script: 'git rev-parse HEAD', returnStdout: true
+            echo "Commit ID = " + commitId
         }
 
         stage('stage 1') {
             echo 'stage 1'
         }
-
-        wrap([$class: 'AnsiColorBuildWrapper']) {
-            stage('\u001B[34mstage 2') {
-                echo "stage 2"
-            }
+        deleteDir();
+    }
+    node('master') {
+        stage('\u001B[34mstage 2') {
+            echo "stage 2"
         }
 
         stage('\u001B[35mstage 3') {
+            echo '============= BRANCH=' + branchName
+            echo '============= BUILD NUMBER=' + buildNumber
+            echo '============= BUILD VERSION=' + buildVersion
+            echo "Commit ID = " + commitId
             echo "stage 3"
         }
 
@@ -36,7 +54,6 @@ def pipeline(){
         stage('stage 4') {
             echo "stage 3"
         }
-
     } //node
 }
 
