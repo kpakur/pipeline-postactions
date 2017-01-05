@@ -13,6 +13,36 @@ echo '============= BRANCH=' + branchName
 echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
+
+node('master') {
+    stage('checkout') {
+        checkout scm
+        commitId = sh script: 'git rev-parse HEAD', returnStdout: true
+        echo "Commit ID = " + commitId
+    }
+
+    stage('<strong>stage 1</strong>') {
+        echo 'stage 1'
+    }
+    deleteDir();
+}
+node('master') {
+    stage('\u001B[34m stage 2') {
+        echo "stage 2"
+    }
+
+    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+        stage('\u001B[35m stage 3') {
+            echo '============= BRANCH=' + branchName
+            echo '============= BUILD NUMBER=' + buildNumber
+            echo '============= BUILD VERSION=' + buildVersion
+            echo "Commit ID = " + commitId
+            echo "stage 3"
+        }
+    }
+}
+
+
 try{
     notifyBuild('STARTED')
     pipeline()
