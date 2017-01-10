@@ -35,7 +35,7 @@ try{
     //pipelineProd()
     utils.notifyBuild('SUCCESSFUL')
 } catch (Exception ex){
-    utils.notifyBuild('FAILED')
+    utils.notifyBuild('FAILED', ex.getMessage())
 } finally {
     utils.notifyBuild('ENDED')
 }
