@@ -16,6 +16,7 @@ def go(){
             echo '============= BUILD VERSION=' + buildVersion
             echo "Commit ID = " + commitId
             echo "stage 3"
+            utils.notifyBuild('INSIDE')
         }
     }
 
