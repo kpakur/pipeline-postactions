@@ -46,6 +46,13 @@ node('master') {
 try{
     notifyBuild('STARTED')
     pipeline()
+    stage('INSIDE 1') {
+        echo "stage 2"
+    }
+    input( message: 'Ok?')
+    stage('INSIDE 2') {
+        echo "stage 2"
+    }
     notifyBuild('SUCCESSFUL')
 } catch (Exception ex){
     notifyBuild('FAILED')
