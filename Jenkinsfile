@@ -13,49 +13,10 @@ echo '============= BRANCH=' + branchName
 echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
-
-node('master') {
-    stage('checkout') {
-        checkout scm
-        commitId = sh script: 'git rev-parse HEAD', returnStdout: true
-        echo "Commit ID = " + commitId
-    }
-
-    stage('<strong>stage 1</strong>') {
-        echo 'stage 1'
-    }
-    deleteDir();
-}
-node('master') {
-    stage('\u001B[34m stage 2') {
-        echo "stage 2"
-    }
-
-    wrap([$class: 'AnsiColorBuildWrapper']) {
-        stage('\u001B[35m stage 3') {
-            echo '============= BRANCH=' + branchName
-            echo '============= BUILD NUMBER=' + buildNumber
-            echo '============= BUILD VERSION=' + buildVersion
-            echo "Commit ID = " + commitId
-            echo "stage 3"
-        }
-    }
-}
-
-
 try{
     notifyBuild('STARTED')
-    pipeline()
-    stage('INSIDE 1') {
-        echo "stage 2"
-    }
-    stage('Confirm') {
-        input( message: 'Ok?')
-
-    }
-    stage('INSIDE 2') {
-        echo "stage 2"
-    }
+    pipelineStandard()
+    //pipelineProd()
     notifyBuild('SUCCESSFUL')
 } catch (Exception ex){
     notifyBuild('FAILED')
@@ -63,7 +24,7 @@ try{
     notifyBuild('ENDED')
 }
 
-def pipeline(){
+def pipelineStandard(){
     node('master') {
         stage('checkout') {
             checkout scm
@@ -71,24 +32,14 @@ def pipeline(){
             echo "Commit ID = " + commitId
         }
 
-        stage('<strong>stage 1</strong>') {
-            echo 'stage 1'
-        }
         deleteDir();
-    }
-    node('master') {
-        stage('\u001B[34m stage 2') {
-            echo "stage 2"
-        }
 
-        wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
-            stage('\u001B[35m stage 3') {
-                echo '============= BRANCH=' + branchName
-                echo '============= BUILD NUMBER=' + buildNumber
-                echo '============= BUILD VERSION=' + buildVersion
-                echo "Commit ID = " + commitId
-                echo "stage 3"
-            }
+        stage('stage 3 Echos') {
+            echo '============= BRANCH=' + branchName
+            echo '============= BUILD NUMBER=' + buildNumber
+            echo '============= BUILD VERSION=' + buildVersion
+            echo "Commit ID = " + commitId
+            echo "stage 3"
         }
     }
 
@@ -97,7 +48,7 @@ def pipeline(){
     }
 
     node('master') {
-        stage('stage 4') {
+        stage('stage 4 Done') {
             echo "stage 3"
         }
     } //node
