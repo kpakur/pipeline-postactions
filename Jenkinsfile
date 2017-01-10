@@ -42,8 +42,8 @@ try{
 
 def pipelineStandard(){
     node('master') {
-        stage('checkout') {
-            unstash name: "ops-pipeline"
+        stage('nothig') {
+            //unstash name: "ops-pipeline"
         }
 
         standardFlow = load('ops-pipeline/standard.groovy')

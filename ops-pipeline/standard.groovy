@@ -2,9 +2,9 @@
 
 def go(){
     node('master') {
-        stage('checkout') {
-            checkout scm
-            commitId = sh script: 'git rev-parse HEAD', returnStdout: true
+        stage('empty') {
+            //checkout scm
+            //commitId = sh script: 'git rev-parse HEAD', returnStdout: true
             echo "Commit ID = " + commitId
         }
 
