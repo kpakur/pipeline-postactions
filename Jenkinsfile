@@ -24,6 +24,7 @@ node('master') {
         stash name: "ops-pipeline", includes: "ops-pipeline/**/*"
 
         utils = load('ops-pipeline/utils.groovy')
+        standardFlow = load('ops-pipeline/standard.groovy')
 
         deleteDir();
     }
@@ -46,7 +47,6 @@ def pipelineStandard(){
             //unstash name: "ops-pipeline"
         }
 
-        standardFlow = load('ops-pipeline/standard.groovy')
 
         deleteDir();
     }
