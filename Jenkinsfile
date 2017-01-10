@@ -46,7 +46,7 @@ def pipelineStandard(){
             unstash name: "ops-pipeline"
         }
 
-        def standardFlow = load('ops-pipeline/standard.groovy')
+        standardFlow = load('ops-pipeline/standard.groovy')
 
         deleteDir();
     }
