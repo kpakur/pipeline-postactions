@@ -44,7 +44,9 @@ def pipelineStandard(){
     }
 
     stage('Confirm') {
-        input( message: 'Ok?')
+        timeout(time: 10, unit: 'MINUTES') {
+            input(message: 'Ok?')
+        }
     }
 
     node('master') {
