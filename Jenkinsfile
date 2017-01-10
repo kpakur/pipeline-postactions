@@ -49,7 +49,10 @@ try{
     stage('INSIDE 1') {
         echo "stage 2"
     }
-    input( message: 'Ok?')
+    stage('Confirm') {
+        input( message: 'Ok?')
+
+    }
     stage('INSIDE 2') {
         echo "stage 2"
     }
@@ -89,7 +92,9 @@ def pipeline(){
         }
     }
 
-    input( message: 'Ok?')
+    stage('Confirm') {
+        input( message: 'Ok?')
+    }
 
     node('master') {
         stage('stage 4') {
