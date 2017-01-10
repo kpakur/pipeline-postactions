@@ -23,7 +23,7 @@ node('master') {
 
         stash name: "ops-pipeline", includes: "ops-pipeline/**/*"
 
-        def standardFlow = load('ops-pipeline/utils.groovy')
+        def utils = load('ops-pipeline/utils.groovy')
 
         deleteDir();
     }
