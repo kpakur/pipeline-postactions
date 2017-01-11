@@ -16,7 +16,7 @@ def go(){
             echo '============= BUILD VERSION=' + buildVersion
             echo "Commit ID = " + commitId
             echo "stage 3"
-            notifyBuild('INSIDE')
+            throw new Exception('INSIDE')
         }
     }
 
@@ -33,7 +33,7 @@ def go(){
             echo "stage 3"
             echo "Commit ID = " + commitId
             echo "stage 3"
-            notifyBuild('INSIDE after confirm')
+            throw new Exception('INSIDE after confirm')
         }
     } //node
 }
