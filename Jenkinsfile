@@ -3,7 +3,7 @@
 commitId = ''
 branchName = BRANCH_NAME
 buildNumber = BUILD_NUMBER
-buildVersion = '0.0.' + BUILD_NUMBER
+buildVersion = '0.${BUILD_NUMBER}.0.0'
 if (branchName != 'master'){
     buildVersion =  BRANCH_NAME.replaceAll('/', '') +'.' + BUILD_NUMBER
 }
@@ -14,7 +14,7 @@ echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
 
-Object.metaClass.notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
+def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESSFUL'
