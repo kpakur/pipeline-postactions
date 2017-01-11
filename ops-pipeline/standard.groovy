@@ -21,7 +21,7 @@ def go(){
     }
 
     stage('Confirm') {
-        timeout(time: 10, unit: 'MINUTES') {
+        timeout(time: 3, unit: 'MINUTES') {
             input(message: 'Ok?')
         }
     }
