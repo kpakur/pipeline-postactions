@@ -31,14 +31,14 @@ node('master') {
 }
 
 try{
-    utils.notifyBuild('STARTED')
+    notifyBuild('STARTED')
     pipelineStandard()
     //pipelineProd()
-    utils.notifyBuild('SUCCESSFUL')
+    notifyBuild('SUCCESSFUL')
 } catch (Exception ex){
-    utils.notifyBuild('FAILED', ex.getMessage())
+    notifyBuild('FAILED', ex.getMessage())
 } finally {
-    utils.notifyBuild('ENDED')
+    notifyBuild('ENDED')
 }
 
 def pipelineStandard(){
