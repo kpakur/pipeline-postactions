@@ -14,7 +14,7 @@ echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
 
-def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
+notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESSFUL'
