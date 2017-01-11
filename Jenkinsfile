@@ -31,7 +31,7 @@ node('master') {
 }
 
 
-notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
+def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESSFUL'
