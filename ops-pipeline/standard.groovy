@@ -16,7 +16,7 @@ def go(){
             echo '============= BUILD VERSION=' + buildVersion
             echo "Commit ID = " + commitId
             echo "stage 3"
-            throw new RuntimeException('INSIDE')
+            error('INSIDE')
         }
     }
 
@@ -25,7 +25,7 @@ def go(){
             input(message: 'Ok?')
         }
 
-        throw new RuntimeException("tralalala");
+        error("tralalala");
     }
 
     node('master') {
@@ -33,7 +33,7 @@ def go(){
             echo "stage 3"
             echo "Commit ID = " + commitId
             echo "stage 3"
-            throw new RuntimeException('INSIDE after confirm')
+            error('INSIDE after confirm')
         }
     } //node
 }

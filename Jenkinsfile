@@ -16,8 +16,6 @@ echo '============= BUILD VERSION=' + buildVersion
 
 def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
-    // build status of null means successful
-    buildStatus = buildStatus ?: 'SUCCESSFUL'
 
     def colorCode = '#FF0000' //red
     if (buildStatus == 'STARTED') {
