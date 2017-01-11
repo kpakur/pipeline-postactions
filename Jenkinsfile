@@ -65,6 +65,7 @@ try{
     notifyBuild('SUCCESSFUL')
 } catch (Exception ex){
     notifyBuild('FAILED', ex.getMessage())
+    throw ex;
 } finally {
     notifyBuild('ENDED')
 }
