@@ -14,23 +14,6 @@ echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
 
-// get sources so pipelines are downloaded too
-node('master') {
-    stage('checkout') {
-        checkout scm
-        commitId = sh script: 'git rev-parse HEAD', returnStdout: true
-        echo "Commit ID = " + commitId
-
-        stash name: "ops-pipeline", includes: "ops-pipeline/**/*"
-
-        utils = load('ops-pipeline/utils.groovy')
-        standardFlow = load('ops-pipeline/standard.groovy')
-
-        deleteDir();
-    }
-}
-
-
 def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
     // build status of null means successful
@@ -66,6 +49,26 @@ def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = ''
     return 0
 }
 }
+
+
+// get sources so pipelines are downloaded too
+node('master') {
+    stage('checkout') {
+        checkout scm
+        commitId = sh script: 'git rev-parse HEAD', returnStdout: true
+        echo "Commit ID = " + commitId
+
+        stash name: "ops-pipeline", includes: "ops-pipeline/**/*"
+
+        utils = load('ops-pipeline/utils.groovy')
+        standardFlow = load('ops-pipeline/standard.groovy')
+
+        deleteDir();
+    }
+}
+
+
+
 
 
 
