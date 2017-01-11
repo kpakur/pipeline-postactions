@@ -3,7 +3,7 @@
 commitId = ''
 branchName = BRANCH_NAME
 buildNumber = BUILD_NUMBER
-buildVersion = '0.${BUILD_NUMBER}.0.0'
+buildVersion = "0.${BUILD_NUMBER}.0.0"
 if (branchName != 'master'){
     buildVersion =  BRANCH_NAME.replaceAll('/', '') +'.' + BUILD_NUMBER
 }
