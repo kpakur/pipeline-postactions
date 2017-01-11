@@ -14,40 +14,27 @@ echo '============= BUILD NUMBER=' + buildNumber
 echo '============= BUILD VERSION=' + buildVersion
 
 
-def notifyBuild = {String buildStatus = 'STARTED', String additionalMessage = '' -> return {
+def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
     // this function needs to be used in the node, otherwise it cannot get the correct list of recipients.
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESSFUL'
 
-    // Default values
-    def colorCode = '#FF0000'
-    // Override default values based on build status
+    def colorCode = '#FF0000' //red
     if (buildStatus == 'STARTED') {
-        color = 'YELLOW'
-        colorCode = '#FFFF00'
+        colorCode = '#FFFF00' //yellow
     } else if (buildStatus == 'SUCCESSFUL') {
-        color = 'GREEN'
-        colorCode = '#00FF00'
-    } else {
-        color = 'RED'
-        colorCode = '#FF0000'
+        colorCode = '#00FF00' //gree
     }
 
-    def subject = "2TESTing ${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def jName = env.JOB_NAME.replaceAll('%2F', '/')
+    def subject = "${buildStatus}: Job '${jName} [${env.BUILD_NUMBER}]'"
     def summary = "${subject} (${env.BUILD_URL}) ${additionalMessage}"
-    def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
-        <p>""" + additionalMessage + """ </p>"""
+    def details = """<p>${buildStatus}: Job '${jName} [${env.BUILD_NUMBER}]':</p>
+    <p>Build output at &QUOT;<a href='${env.BUILD_URL}'>${jName} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+    <p>Console output at &QUOT;<a href='${env.BUILD_URL}console'>${jName} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+    <p>${additionalMessage}</p>"""
 
-    // Send notifications
     slackSend(color: colorCode, message: summary)
-
-    echo subject
-    echo summary
-    echo details
-
-    return 0
-}
 }
 
 
