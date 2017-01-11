@@ -24,6 +24,8 @@ def go(){
         timeout(time: 3, unit: 'MINUTES') {
             input(message: 'Ok?')
         }
+
+        throw new Exception("tralalala");
     }
 
     node('master') {

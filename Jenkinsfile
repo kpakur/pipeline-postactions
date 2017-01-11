@@ -38,7 +38,7 @@ try{
 } catch (Exception ex){
     utils.notifyBuild('FAILED', ex.getMessage())
 } finally {
-    utils.notifyBuild('ENDED')
+    utils.notifyBuild('ENDED') //this does not work on timeout as global variables not avilable so do not scripts loaded, no such function
 }
 
 def pipelineStandard(){
