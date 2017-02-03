@@ -47,8 +47,8 @@ node('master') {
 	stage('ask2'){
 		def userInput = 'random';
             timeout(time: 60, unit: 'MINUTES') {
-				def choicePMC = choice(choices: "random\npmc\npmc2\npmc3\npmc4\n", description: 'You may need to wait a while until PMC is available for you. The best to check locks list which is available or just try a random one if you are feeling lucky', name: 'env-to-run');
-				userInput = input(message: 'Do you want to deploy to PMC (pre master check) environment?', parameters: [choicePMC])
+				def choicePMC = choice(choices: "random\npmc\npmc2\npmc3\npmc4\n", description: 'The best to check locks to find which is available or just try a random one if you are feeling lucky', name: 'env-to-run');
+				userInput = input(message: 'Deploy to PMC (pre master check) environment?', parameters: [choicePMC])
             }
 			
 			if (userInput == 'random') {
