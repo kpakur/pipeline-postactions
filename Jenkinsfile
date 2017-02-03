@@ -38,7 +38,7 @@ def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
 
 // get sources so pipelines are downloaded too
 node('master') {
-	stage('ask){
+	stage('ask'){
 		choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
 		def userInput = input(message: 'Select one', parameters: [choice])
 		echo userInput
