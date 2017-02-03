@@ -45,7 +45,7 @@ node('master') {
 	}
 	
 	stage('ask2'){
-		def choice2 = choice(choices: "option1\noption2\noption3\n", description: 'delimiters within string', name: 'my param'),
+		def choice2 = choice(choices: "option1\noption2\noption3\n", description: 'delimiters within string', name: 'my param');
 		def userInput = input(message: 'Select one', parameters: [choice2])
 		echo userInput
 	}
