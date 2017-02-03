@@ -45,9 +45,28 @@ node('master') {
 	}
 	
 	stage('ask2'){
-		def choice2 = choice(choices: "option1\noption2\noption3\n", description: 'delimiters within string', name: 'my param');
-		def userInput = input(message: 'Select one', parameters: [choice2])
-		echo userInput
+		def userInput = 'random';
+            timeout(time: 60, unit: 'MINUTES') {
+				def choicePMC = choice(choices: "random\npmc\npmc2\npmc3\npmc4\n", description: 'You may need to wait a while until PMC is available for you. The best to check locks list which is available or just try a random one if you are feeling lucky', name: 'selectpmc');
+				userInput = input(message: 'Do you want to deploy to PMC (pre master check) environment?', parameters: [choicePMC])
+            }
+			
+			if (userInput == 'random') {
+				// if yes then use PMC environment
+				def pmcNo = System.currentTimeMillis() % 4
+				if (pmcNo == 0) {
+					environment = 'pmc'
+					environmentCreds = 'pmc'
+				} else {
+					environment = 'pmc' + pmcNo
+					environmentCreds = 'pmc'
+				}
+			} else {
+				environment = userInput
+				environmentCreds = 'pmc'
+			}
+			
+            echo "Deploying to ${environment}"
 	}
 	
     stage('checkout') {
