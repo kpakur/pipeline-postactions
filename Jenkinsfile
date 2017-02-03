@@ -37,6 +37,39 @@ def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
 
 
 // get sources so pipelines are downloaded too
+	stage('ask no node'){
+		def choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
+		def userInput = input(message: 'Select one', parameters: [choice])
+		echo userInput
+	}
+
+	stage('ask2 no node'){
+		def userInput = 'random';
+            timeout(time: 60, unit: 'MINUTES') {
+				def choicePMC = choice(choices: "random\npmc\npmc2\npmc3\npmc4\n", description: 'The best to check locks to find which is available or just try a random one if you are feeling lucky', name: 'env-to-run');
+				userInput = input(message: 'Deploy to PMC (pre master check) environment?', parameters: [choicePMC])
+            }
+			
+			echo "Selected env ${userInput}"
+			
+			if (userInput == 'random') {
+				// if yes then use PMC environment
+				def pmcNo = System.currentTimeMillis() % 4
+				if (pmcNo == 0) {
+					environment = 'pmc'
+					environmentCreds = 'pmc'
+				} else {
+					environment = 'pmc' + pmcNo
+					environmentCreds = 'pmc'
+				}
+			} else {
+				environment = userInput
+				environmentCreds = 'pmc'
+			}
+			
+            echo "Deploying to ${environment}"
+	}
+
 node('master') {
 	stage('ask'){
 		def choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
