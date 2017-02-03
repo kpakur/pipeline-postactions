@@ -51,6 +51,8 @@ node('master') {
 				userInput = input(message: 'Deploy to PMC (pre master check) environment?', parameters: [choicePMC])
             }
 			
+			echo "Selected env ${userInput}"
+			
 			if (userInput == 'random') {
 				// if yes then use PMC environment
 				def pmcNo = System.currentTimeMillis() % 4
