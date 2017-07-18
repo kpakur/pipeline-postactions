@@ -43,6 +43,19 @@ def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
 		echo userInput
 	}
 
+
+stage('ask combo and checkboxes'){
+	/*def choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
+	def userInput = input(message: 'Select one', parameters: [choice])
+	echo userInput
+*/
+
+	input id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choice(choices: ['P1', 'P2', 'P3'], description: 'select env to run', name: 'env'), booleanParam(defaultValue: true, description: '', name: 'runSmoke'), booleanParam(defaultValue: true, description: '', name: 'runFunc'), booleanParam(defaultValue: true, description: '', name: 'runParallelFunc'), booleanParam(defaultValue: true, description: '', name: 'runPerf')]
+
+
+
+}
+
 	stage('ask2 no node'){
 		def userInput = 'random';
             timeout(time: 60, unit: 'MINUTES') {
@@ -70,7 +83,7 @@ def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
             echo "Deploying to ${environment}"
 	}
 
-node('master') {
+node() {
 	stage('ask'){
 		def choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
 		def userInput = input(message: 'Select one', parameters: [choice])

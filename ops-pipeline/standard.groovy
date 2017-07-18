@@ -1,7 +1,7 @@
 #!groovy
 
 def go(){
-    node('master') {
+    node() {
         stage('empty') {
             //checkout scm
             //commitId = sh script: 'git rev-parse HEAD', returnStdout: true
@@ -28,7 +28,7 @@ def go(){
         error("tralalala");
     }
 
-    node('master') {
+    node() {
         stage('stage 4 Done') {
             echo "stage 3"
             echo "Commit ID = " + commitId
