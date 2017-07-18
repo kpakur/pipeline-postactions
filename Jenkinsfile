@@ -50,14 +50,9 @@ stage('ask combo and checkboxes'){
 	def runFuncParam = booleanParam(defaultValue: true, description: '', name: 'runFunc')
 	def runParallelFuncParam = booleanParam(defaultValue: true, description: '', name: 'runParallelFunc')
 	def runPerf = booleanParam(defaultValue: true, description: '', name: 'runPerf')
-	/*def userInput = input(message: 'Select one', parameters: [choice])
+
+	def userInput = input(id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choiceParam, runSmokeParam, runFuncParam, runParallelFuncParam, runPerf])
 	echo userInput
-*/
-
-	input(id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choiceParam, runSmokeParam, runFuncParam, runParallelFuncParam, runPerf])
-
-
-
 }
 
 	stage('ask2 no node'){
