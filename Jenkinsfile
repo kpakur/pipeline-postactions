@@ -50,7 +50,7 @@ stage('ask combo and checkboxes'){
 	echo userInput
 */
 
-	input id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: choice, booleanParam(defaultValue: true, description: '', name: 'runSmoke'), booleanParam(defaultValue: true, description: '', name: 'runFunc'), booleanParam(defaultValue: true, description: '', name: 'runParallelFunc'), booleanParam(defaultValue: true, description: '', name: 'runPerf')]
+	input id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choice, booleanParam(defaultValue: true, description: '', name: 'runSmoke'), booleanParam(defaultValue: true, description: '', name: 'runFunc'), booleanParam(defaultValue: true, description: '', name: 'runParallelFunc'), booleanParam(defaultValue: true, description: '', name: 'runPerf')]
 
 
 
