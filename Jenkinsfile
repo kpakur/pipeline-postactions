@@ -52,11 +52,11 @@ stage('ask combo and checkboxes'){
 	def runPerf = booleanParam(defaultValue: true, description: '', name: 'runPerf')
 
 	def userInput = input id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choiceParam, runSmokeParam, runFuncParam, runParallelFuncParam, runPerf]
-	echo userInput['env']
-	echo "${userInput['runSmoke']}"
-	//echo String.valueOf(userInput['runFunc'])
-	//echo String.valueOf(userInput['runParallelFunc'])
-	//echo String.valueOf(userInput['runPerf'])
+	echo "env: ${userInput['env']}"
+	echo "runSmoke: ${userInput['runSmoke']}"
+	echo "runFunc: ${userInput['runFunc']}"
+	echo "runParallelFunc: ${userInput['runParallelFunc']}"
+	echo "runPerf: ${userInput['runPerf']}"
 
 }
 
