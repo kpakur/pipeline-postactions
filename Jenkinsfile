@@ -46,10 +46,10 @@ def notifyBuild(String buildStatus = 'STARTED', String additionalMessage = '') {
 
 stage('ask combo and checkboxes'){
 	def choiceParam = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description here')
-	def runSmokeParam = booleanParam(defaultValue: true, description: '', name: 'runSmoke')
-	def runFuncParam = booleanParam(defaultValue: true, description: '', name: 'runFunc')
-	def runParallelFuncParam = booleanParam(defaultValue: true, description: '', name: 'runParallelFunc')
-	def runPerf = booleanParam(defaultValue: true, description: '', name: 'runPerf')
+	def runSmokeParam = new BooleanParameterDefinition(defaultValue: true, description: 'aaaaa', name: 'runSmoke')
+	def runFuncParam =  new BooleanParameterDefinition(defaultValue: true, description: '', name: 'runFunc')
+	def runParallelFuncParam =  new BooleanParameterDefinition(defaultValue: true, description: '', name: 'runParallelFunc')
+	def runPerf =  new BooleanParameterDefinition(defaultValue: true, description: '', name: 'runPerf')
 
 	def userInput = input(id: 'Xxid', message: 'What to run', ok: 'OK great', parameters: [choiceParam, runSmokeParam, runFuncParam, runParallelFuncParam, runPerf])
 	echo userInput
